@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class LoungePicture extends Model
 {
     use HasFactory;
+
+    protected $table = 'lounges_ratings';
+
+    protected $fillable = [
+        'lounge_id',
+        'picture_url',
+        'picture_order'
+    ];
 }
