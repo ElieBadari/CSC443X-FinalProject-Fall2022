@@ -14,7 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->id();
+            $table->id('favorite_id');
+            $table->integer('user_id');
+            $table->string('entity_type');
+            $table->integer('entity_id');
+            // $table->softDeletes();
             $table->timestamps();
         });
     }

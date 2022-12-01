@@ -14,7 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('searches', function (Blueprint $table) {
-            $table->id();
+            $table->id('search_id');
+            $table->integer('user_id');
+            $table->string('keyword');
+            // $table->softDeletes();
             $table->timestamps();
         });
     }

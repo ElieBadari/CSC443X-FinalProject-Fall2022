@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('lounges', function (Blueprint $table) {
-            $table->id();
+            $table->id('lounge_id');
+            $table->string('lounge_name');
+            $table->text('description');
+            $table->text('ratings');
+            $table->text('location');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

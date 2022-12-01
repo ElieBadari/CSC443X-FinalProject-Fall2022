@@ -14,7 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->id();
+            $table->id('game_id');
+            $table->string('game_name');
+            $table->text('pic_url');
+            $table->integer('category_id');
+            // $table->softDeletes();
             $table->timestamps();
         });
     }
