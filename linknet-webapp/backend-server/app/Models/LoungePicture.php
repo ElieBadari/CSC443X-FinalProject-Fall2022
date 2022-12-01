@@ -13,7 +13,7 @@ class LoungePicture extends Model
 
     protected $fillable = [
         'lounge_id',
-        'picture_url',
-        'picture_order'
+        'pic_url',
+        'pic_order'
     ];
 }
