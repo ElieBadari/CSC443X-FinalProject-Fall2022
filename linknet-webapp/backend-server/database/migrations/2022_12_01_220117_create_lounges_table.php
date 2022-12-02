@@ -22,6 +22,25 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::create('lounges_pictures', function (Blueprint $table) {
+            $table->id('lounges_pictures_id');
+            $table->integer('lounge_id');
+            $table->text('pic_url');
+            $table->integer('pic_order');
+            // $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::create('lounges_ratings', function (Blueprint $table) {
+            $table->id('lounges_ratings_id');
+            $table->integer('user_id');
+            $table->integer('lounge_id');
+            $table->double('rating');
+            $table->text('review');
+            // $table->softDeletes();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -32,5 +51,7 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('lounges');
+        Schema::dropIfExists('lounges_pictures');
+        Schema::dropIfExists('lounges_ratings');
     }
 };

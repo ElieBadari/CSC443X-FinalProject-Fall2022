@@ -21,6 +21,12 @@ return new class extends Migration
             // $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::create('games_categories', function (Blueprint $table) {
+            $table->id('games_categories_id');
+            $table->string('category_name');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -31,5 +37,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('games');
+        SChema::dropIfExists('games_categories');
     }
 };
