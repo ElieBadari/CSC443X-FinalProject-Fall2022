@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('lounges_pictures', function (Blueprint $table) {
             $table->id('lounges_pictures_id');
             $table->integer('lounge_id');
-            $table->text('picture_url');
-            $table->integer('picture_order');
+            $table->text('pic_url');
+            $table->integer('pic_order');
             // $table->softDeletes();
             $table->timestamps();
         });
