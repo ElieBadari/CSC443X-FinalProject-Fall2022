@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('lounges', function (Blueprint $table) {
             $table->id('lounge_id');
+            $table->string('type')->default('lounge');
             $table->string('lounge_name');
             $table->text('description');
             $table->text('ratings');

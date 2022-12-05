@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id('game_id');
+            $table->string('type')->default('game');
             $table->string('game_name');
             $table->text('pic_url');
             $table->integer('category_id');
