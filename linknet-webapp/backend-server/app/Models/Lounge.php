@@ -9,7 +9,7 @@ class Lounge extends Model
 {
     use HasFactory;
     
-    protected $table = "lounges";
+    protected $table = 'lounges';
 
     protected $fillable = [
         'lounge_name',

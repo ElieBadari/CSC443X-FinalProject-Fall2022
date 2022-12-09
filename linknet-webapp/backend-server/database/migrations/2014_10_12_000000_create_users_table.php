@@ -15,17 +15,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id');
-            $table->integer('user_type_id');
+            $table->integer('user_type_id')->default('2');//default user is a gamer unless said otherwise, 0=>admin,1=>loungeowner,2=>gamer
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->text('locations');
-            $table->text('pic_url');
-            $table->text('bio');
+            $table->text('locations')->default(null);
+            $table->text('pic_url')->default(null);
+            $table->text('bio')->default(null);
             $table->timestamps();
             $table->softDeletes();
             //$table->rememberToken();
-            $table->timestamps();
         });
     }
 

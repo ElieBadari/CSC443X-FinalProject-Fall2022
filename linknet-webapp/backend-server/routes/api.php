@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\User\FavoriteController;
+use App\Http\Controllers\User\GameController;
+use App\Http\Controllers\User\LoungeController;
+use App\Http\Controllers\User\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,50 +27,66 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v0.1'], function(){
     Route::group(['prefix' => 'admin']. function(){
             //add/update user
-            // Route::post("add/{id?}", [Usercontroller::class, "addorUpdateUser"]);
+            Route::post('addUser/{id?}', [Usercontroller::class, 'addorUpdateUser']);
             //delete user
-            // Route::post("delete/{id?}", [Usercontroller::class, "deleteUser"]);
+            Route::post('deleteUser/{id?}', [Usercontroller::class, 'deleteUser']);
+
             Route::group(['prefix' => 'games'], function(){
                 //add games
+                Route::post('addGame/{id?}'. [GameController::class,'addGameOrUpdateGame']);
+                //delete games
+                Route::post('deleteGame/{id?}', [GameController::class,'deleteGame']);
             });
-            Route::group(['prefix' => 'favorites'],function(){        
-                
+            Route::group(['prefix' => 'favorites'],function(){
+                //dk yet
             });
             Route::group(['prefix' => 'searches'], function(){
-        
+                //dk yet
+                //block keywords (apple inspired)
             });
             Route::group(['prefix' => 'lounges'], function(){
                 //add/update lounge
-                //Route::post("add/{id?}", [LoungeController::class, "addorUpdateLounge"]);
+                Route::post('addLounge/{id?}', [LoungeController::class, 'addOrUpdateLounge']);
                 //delete lounge
-                //Route::post("delete/{id?}", [LoungeController::class, "deleteLounge"]);
-                //add decription
-                //add image with order
+                Route::post('deleteLounge/{id?}', [LoungeController::class, 'deleteLounge']);
             });        
     });
     Route::group(['prefix' => 'user'], function(){
-            //edit profile {bio pciture email password username}
-            //update location
+            //signup
+            Route::post('signup', [UserController::class, 'addOrUpdateUser']);
+            //signin
+            Route::post('signin',[UserController::class, 'signIn']);
         Route::group(['prefix' => 'lounges'], function(){
-            //display  lounges
+            //get  lounges
+            Route::get('lounges/{id?}',[LoungeController::class,'getLounges']);
+
             Route::group(['prefix' => 'lounge'], function(){
-                //display lounge picutres by order
-                //display ratings
-                //display location
-                //display reviews
+                //get lounge picutres by order
+                Route::get('lounge',[LoungeController::class, 'getPicturesByOrder']);
+                //get ratings
+                Route::get('ratings',[LoungeController::class, 'getRatings']);
+                //get location
+                Route::get('location',[LoungeController::class,'getLocation']);
+                //get reviews
+                Route::get('reviews', [LoungeController::class,'getReviews']);
                 //add review
+                Route::post('review',[LoungeController::class,'addReview']);
             });
         });
         Route::group(['prefix' => 'games'], function(){
-            //display games
+            //get games
+            Route::get('games',[GameController::class,'getGames']);
         });
         Route::group(['prefix' => 'favorites'],function(){
-            //display favorites by type
+            //get favorites by type
+            Route::get('favorites',[FavoriteController::class,'getFavoritesByType']);
 
         });
         Route::group(['prefix' => 'searches'], function(){
             //display search
+            Route::get('search',[SearchController::class,'getSearch']);
             //display keywords
+            Route::get('keywords',[SearchController::class,'getKeywords']);
         });
     });
 });
