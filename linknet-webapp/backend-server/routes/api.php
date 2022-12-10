@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'v0.1'], function(){
-    Route::group(['prefix' => 'admin']. function(){
+    Route::group(['prefix' => 'admin'], function(){
             //add/update user
             Route::post('addUser/{id?}', [Usercontroller::class, 'addorUpdateUser']);
             //delete user
@@ -33,8 +33,8 @@ Route::group(['prefix' => 'v0.1'], function(){
 
             Route::group(['prefix' => 'games'], function(){
                 //add games
-                Route::post('addGame/{id?}'. [GameController::class,'addGameOrUpdateGame']);
-                //delete games
+                Route::post('addGame/{id?}', [GameController::class,'addGameOrUpdateGame']);
+                //delete game
                 Route::post('deleteGame/{id?}', [GameController::class,'deleteGame']);
             });
             Route::group(['prefix' => 'favorites'],function(){
