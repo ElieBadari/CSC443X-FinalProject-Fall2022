@@ -1,0 +1,321 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Major Mono Display', monospace;
+}
+body {
+    background-color:  #002E26;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.main-container {
+    width: 80%;
+    min-height: 100vh;
+    height: 100%;
+    background: linear-gradient(
+        to right bottom, 
+        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0)
+    ); 
+    display: flex;
+    border-radius: 1rem 1rem 0 0;
+    border-top: solid .1rem rgba(255, 255, 255, 0.4);
+    border-left: solid .1rem rgba(0, 84, 255,.2);
+    border-right: solid .1rem rgba(0, 46, 38,.2);
+    display: flex;
+    flex-direction: column;
+
+}
+    .top-section {
+        width: 100%;
+        min-height: 10vh;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem 1rem 0 0;
+    }
+        .nav-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+            .logo-container {
+                display: flex;
+                padding: 1rem;
+                width: 10%;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+            }
+                .logo-container img {
+                    width: 5rem;
+                    height: 5rem;
+                    object-fit: cover;
+                }
+                
+            .search-container {
+                display: flex;
+                width: 80%;
+                height: 100%;
+                padding: 1rem;
+                
+            }
+                .search-bar {
+                    display: flex;
+                    flex-direction: row;
+                    width: 80%;
+                    background-color: white;
+                    border-radius: 3rem;
+
+                }
+                    .location-section {
+                        padding: .5rem;
+                        width: 35%;
+                        
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        align-items: center;   
+                    }
+                        .location-text {
+                            color: #002E26;
+                        }
+                    .search-section {
+                        display: flex;
+                        width: 65%;
+                        padding: .5rem;
+                        flex-direction: row;
+                        justify-content: flex-start;
+                        align-items: center;  
+
+                    }
+                        .search-icon {
+                            display: flex;
+                            flex:1;
+                        }
+                        .search-text {
+                            display: flex;
+                            flex: 4;
+                            color: #bbbbbb;
+                            width: 100%;
+                        }
+                            .search-text input {
+                                border: none;
+                                outline: none;
+                                overflow: visible;
+                                width: 100%;
+                            }
+            .seperator {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .profile-container {
+                display: flex;
+                width: 10%;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                
+            }
+                .profile-container img {
+                    width: 5rem;
+                    height: 5rem;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    border: solid white .1rem;
+                }
+    .bottom-section {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: row;
+        padding: 1rem;
+       
+    }
+        .left-section {
+            display: flex;
+            width: 50%;
+            flex-direction: column;
+            height: auto;
+            min-height: 100vh;
+        }
+
+    .title-container {
+        padding: 1rem;
+    }
+        .title-text {
+            color: white;
+            font-size: 2rem;
+        }
+            .lounges-container{
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 1rem;
+                overflow: auto;
+                cursor: all-scroll;
+            }
+            .lounges-container::-webkit-scrollbar {
+                display: none;
+              }
+                .lounge-container {
+                    width: 90%;
+                    height: 23rem;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 1rem;
+                    cursor: pointer;
+                }
+                    .lounge-card {
+                        background: white;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 2rem;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                        .card-top-section{
+                            display: flex;
+                            height: 60%;
+                        }
+                            .lounge-image-section{
+                                display: flex;
+                                width: 100%;
+                                height: 100%;
+                                position: relative;
+                            }
+                                .lounge-image-section img{
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                    border-radius: 2rem 2rem 0 0;
+                                }
+                                .bookmark-section{
+                                    width: 3rem;
+                                    height: 3rem;
+                                    background: white;
+                                    border-radius: 50%;
+                                    position: absolute;
+                                    top: 1rem;
+                                    right: 1rem;   
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;   
+                                }
+                                    .bookmark-section img {
+                                        width: 2rem;
+                                        height: 2rem;
+                                    }
+                        .card-bottom-section{
+                            display: flex;
+                            height: 40%;
+                            flex-direction: row;
+                            padding: .5rem;
+                        }
+                            .card-bottom-left-section{
+                                display: flex;
+                                flex-direction: column;
+                                width: 70%;
+                                padding: .1rem;
+                                color: #002E26;
+                            }
+                                .lounge-name{
+                                    padding: .5rem 0 .5rem 0;
+                                    width: 100%;
+                                }
+                                .lounge-decription{
+                                    padding: .5rem 0 .5rem 0;
+                                    width: 100%;
+                                }
+                                .lounge-distance{
+                                    padding: .5rem 0 .5rem 0;
+                                    width: 100%;
+                                }
+                            .card-bottom-right-section{
+                                display: flex;
+                                flex-direction: column;
+                                width: 30%;
+                                padding: .5rem;
+
+                            }
+                                .lounge-rating-container{
+                                    display: flex;
+                                    flex-direction: row;
+                                    justify-content: center;
+                                    align-items: center;
+                                    width: 100%;
+                                    padding: .5rem;
+                                    color: white;
+                                    background-color: #002E26;
+                                    border-radius: 1rem;
+                                }
+
+
+        .right-section {
+            display: flex;
+            width: 50%;
+            flex-direction: column;
+            height: auto;
+            min-height: 100vh;
+
+        }   
+            
+            .games-section{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                
+            }
+            .games-container{
+                width: 100%;
+                height:fit-content;
+                padding: 1rem;
+                display: flex;
+                overflow-y: hidden;
+                overflow-x: auto;
+        
+            }
+            /* .games-container::-webkit-scrollbar {
+                display: none;
+            } */
+                .game-container{
+                  width: 100%;
+                  min-height: 20vh;
+                  height: auto;
+                  padding: .5rem;
+                    
+                }
+                    .game-card {
+                       width: 10rem;
+                       height: 10rem;
+                       background: linear-gradient(
+                            to right bottom, 
+                            rgba(255, 255, 255, 0.4),
+                            rgba(255, 255, 255, 0)
+                        );
+                        border-radius: 1rem;
+                        border-top: solid .1rem rgba(255, 255, 255, 0.4);
+                        border-bottom: solid .1rem rgba(255, 255, 255, 0.4);
+                        border-left: solid .1rem rgba(0, 84, 255,.2);
+                        border-right: solid .1rem rgba(0, 46, 38,.2);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                        .game-card p{
+                            text-align: center;
+                            color: white;
+                            font-size: 5rem;
+                        }
