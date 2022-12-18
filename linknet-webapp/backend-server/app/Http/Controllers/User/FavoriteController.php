@@ -9,7 +9,7 @@ use App\Models\User;
 
 class FavoriteController extends Controller
 {
-    function getFavoritesByType(Request $request, $id){//this might need editing once i get the front end working
+    function getFavoritesByType(Request $request, $id){//this might need editing once i get the front end working and jwt too
         $user = User::find($id);
         if(!$user){
             return response()->json([

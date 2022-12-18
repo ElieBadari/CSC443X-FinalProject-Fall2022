@@ -84,15 +84,15 @@ class UserController extends Controller {
         ]);
         if($validator->fails()){ //if validation fails then return error
             return response()->json([
-                "status" => "failed",
+                "status" => "validation failed",
                 "results" => []
             ], 400);
         }else {
             //if not then check if the user exists in the database
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('username', $request->username)->first();
             if($user){
                 return response()->json([
-                    "status" => "failed",
+                    "status" => "user already exists",
                     "results" => []
                 ], 400);
             }else{
@@ -100,6 +100,18 @@ class UserController extends Controller {
                 $user->username = $request->username ? $request->username : $user->username;
                 $user->email = $request->email ? $request->email : $user->email;
                 $user->password = bcrypt($request->password) ? bcrypt($request->password) : $user->password;
+
+                if($user->save()){
+                    return response()->json([
+                        "status" => "user creation success",
+                        "results" => ""//here i will return the jwt token
+                    ], 200);
+                }else {
+                    return response()->json([
+                        "status" => "user creation failed",
+                        "results" => []
+                    ], 400);
+                }
             }
         }
     }
@@ -131,6 +143,4 @@ class UserController extends Controller {
             }
         }        
     }
-
-    
 }
