@@ -13,7 +13,7 @@ class UserController extends Controller {
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['signUp','signIn']]);
+        $this->middleware('auth:api', ['except' => ['signup','signin']]);
     }
 
     //###################################################
@@ -43,7 +43,7 @@ class UserController extends Controller {
         if  ($user->user_type_id == 0){
             return response()->json([
                 'status' => 'success',
-                'message' => 'User created successfully',
+                'message' => 'User signed in successfully',
                 'user' => $user,
                 'authorisation' => [
                     'token' => $token,
@@ -54,7 +54,7 @@ class UserController extends Controller {
         }else if ($user->user_type_id == 1){
             return response()->json([
                 'status' => 'success',
-                'message' => 'User created successfully',
+                'message' => 'User signed in successfully',
                 'user' => $user,
                 'authorisation' => [
                     'token' => $token,
@@ -65,7 +65,7 @@ class UserController extends Controller {
         }else {
             return response()->json([
                 'status' => 'success',
-                'message' => 'User created successfully',
+                'message' => 'User signed in successfully',
                 'user' => $user,
                 'authorisation' => [
                     'token' => $token,
