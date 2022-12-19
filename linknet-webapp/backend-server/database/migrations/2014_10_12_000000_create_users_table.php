@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id');
-            $table->integer('user_type_id')->default('2');//default user is a gamer unless said otherwise, 0=>admin,1=>loungeowner,2=>gamer
+            $table->integer('user_type_id')->default('2');//default user is a gamer unless said otherwise, 0=>admin,1=>lounge,2=>gamer
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');

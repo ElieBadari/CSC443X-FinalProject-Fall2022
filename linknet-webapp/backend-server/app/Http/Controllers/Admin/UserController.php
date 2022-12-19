@@ -2,31 +2,149 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
 
 
 class UserController extends Controller {
     
-    function addorUpdateUser(Request $request, $id = null){
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|min:5',
-            'email' => 'required|email',
-            'password' => 'required|min:8',
+
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['signUp','signIn']]);
+    }
+
+    //###################################################
+    // these are reg user functions
+    //###################################################
+    
+    public function signIn(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = $request->only('username', 'password');
+
+        $token = Auth::attempt($credentials);
+        
+        if (!$token) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
+        $user = Auth::user();
+
+        if  ($user->user_type_id == 0){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User created successfully',
+                'user' => $user,
+                'authorisation' => [
+                    'token' => $token,
+                    'role' => 'admin',
+                    'type' => 'bearer',
+                ]
+            ]);
+        }else if ($user->user_type_id == 1){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User created successfully',
+                'user' => $user,
+                'authorisation' => [
+                    'token' => $token,
+                    'role' => 'lounge',
+                    'type' => 'bearer',
+                ]
+            ]);
+        }else {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User created successfully',
+                'user' => $user,
+                'authorisation' => [
+                    'token' => $token,
+                    'role' => 'gamer',
+                    'type' => 'bearer',
+                ]
+            ]);
+        }
+    }
+
+    public function signUp(Request $request){
+
+        $request->validate([
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+
+        $user = User::create([
+            'username' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        $token = Auth::login($user);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User created successfully',
+            'user' => $user,
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully logged out',
+        ]);
+    }
+
+    public function refresh()
+    {
+        return response()->json([
+            'status' => 'success',
+            'user' => Auth::user(),
+            'authorisation' => [
+                'token' => Auth::refresh(),
+                'type' => 'bearer',
+            ]
+        ]);
+    }
+
+    //###################################################
+    // these are admin only functions
+    //###################################################
+
+    public function addorUpdateUser(Request $request, $id = null){
+        
+        $request->validate([
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
             'user_type_id' => 'integer',
             'locations' => 'array',
             'pic_url' => 'string',
             'bio' => 'string'
         ]);
 
-        if($validator->fails()){//if validation fails then return error
-            return response()->json([
-                "status" => "validation failed",
-                "results" => []
-            ], 400);
-        }elseif (!$id){//if the id is null then we are adding a user else we are updating one
+        $credentials = $request->only('username', 'password');
+
+        $token = Auth::attempt($credentials);
+
+        if (!$id){//if the id is null then we are adding a user else we are updating one
             $user = new User;
         }else { 
             $user = User::find($id);
@@ -75,72 +193,4 @@ class UserController extends Controller {
         }
     }
 
-    function signUp(Request $request){//here is the signup for regular users
-        //must validate user input
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|min:5',
-            'email' => 'required|email',
-            'password' => 'required|min:8'
-        ]);
-        if($validator->fails()){ //if validation fails then return error
-            return response()->json([
-                "status" => "validation failed",
-                "results" => []
-            ], 400);
-        }else {
-            //if not then check if the user exists in the database
-            $user = User::where('username', $request->username)->first();
-            if($user){
-                return response()->json([
-                    "status" => "user already exists",
-                    "results" => []
-                ], 400);
-            }else{
-                $user = new User;
-                $user->username = $request->username ? $request->username : $user->username;
-                $user->email = $request->email ? $request->email : $user->email;
-                $user->password = bcrypt($request->password) ? bcrypt($request->password) : $user->password;
-
-                if($user->save()){
-                    return response()->json([
-                        "status" => "user creation success",
-                        "results" => ""//here i will return the jwt token
-                    ], 200);
-                }else {
-                    return response()->json([
-                        "status" => "user creation failed",
-                        "results" => []
-                    ], 400);
-                }
-            }
-        }
-    }
-
-    function signIn(Request $request){
-        //must validate user input
-        $validator = Validator::make($request->all(), [
-            'username' => 'required',
-            'password' => 'required',
-        ]);
-        if($validator->fails()){ //if validation fails then return error
-            return response()->json([
-                "status" => "failed",
-                "results" => []
-            ], 400);
-        }else {
-            //if not then check if the user exists in the database
-            $user = User::where('username', $request->username)->first();
-            if($user){
-                return response()->json([
-                    "status" => "success",
-                    "results" => ""//here i will return the jwt token
-                ], 200);
-            }else{
-                return response()->json([
-                    "status" => "failed",
-                    "results" => []
-                ], 400);
-            }
-        }        
-    }
 }

@@ -53,9 +53,15 @@ Route::group(['prefix' => 'v0.1'], function(){
     });
     Route::group(['prefix' => 'user'], function(){
             //signup
-            Route::post('signup', [UserController::class, 'addOrUpdateUser']);
+            Route::post('signup', [UserController::class, 'signUp']);
             //signin
             Route::post('signin',[UserController::class, 'signIn']);
+
+            Route::post('refresh',[UserController::class, 'refresh']);
+            
+            Route::post('logout',[UserController::class, 'logout']);
+
+            Route::post('edit',[UserController::class, 'editProfile']);
         Route::group(['prefix' => 'lounges'], function(){
             //get  lounges
             Route::get('lounges/{id?}',[LoungeController::class,'getLounges']);
